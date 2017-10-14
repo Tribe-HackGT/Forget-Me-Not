@@ -45,7 +45,28 @@
                 <p>Hello! Welcome to the About You page. This is where you input information about yourself and a picture.
                     re you input information about yourself and a picture.</p>
                   <button onclick="location.href = 'FormDirectory.html'"> Input your info </button>
-                  <button onclick="location.href = '#'"> Input your picture </button>
+     <!--             <button onclick="location.href = 'PicDirectory.html'" > takephoto </button>-->
+  
+                  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>  
+                  <input type="button" value="Gallery" onclick="getPhoto()"/>
+                  <img id="myImage" src="#" />
+            <script>
+            function getPhoto() {
+            // Retrieve image file location from specified source
+            navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+            destinationType: destinationType.DATA_URL});
+
+            function onSuccess(imageData) {
+            var image = document.getElementById('myImage');
+            image.src = "data:image/jpeg;base64," + imageData;
+            }
+
+            function onFail(message) {
+            alert('Failed because: ' + message);
+            }
+            }
+            </script>
+
               </div>
             </div>  
           </div>
