@@ -15,6 +15,9 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
         }
     },
     "dependent_plugins": {}
