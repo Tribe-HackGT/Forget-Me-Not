@@ -15,9 +15,6 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.phonegap.forgetmenot"
-        },
-        "cordova-plugin-calendar": {
-            "PACKAGE_NAME": "com.phonegap.forgetmenot"
         }
     },
     "dependent_plugins": {},
@@ -29,20 +26,11 @@
             "clobbers": [
                 "window.StatusBar"
             ]
-        },
-        {
-            "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
-            "id": "cordova-plugin-calendar.Calendar",
-            "pluginId": "cordova-plugin-calendar",
-            "clobbers": [
-                "Calendar"
-            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-console": "1.0.7",
-        "cordova-plugin-statusbar": "1.0.1",
-        "cordova-plugin-calendar": "4.6.0"
+        "cordova-plugin-statusbar": "1.0.1"
     }
 }
