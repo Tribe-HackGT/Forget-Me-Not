@@ -43,6 +43,7 @@
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
                         <textarea id="inputDescription"></textarea>
+                        <input type="button" id="pictureButton" value="Add Photo" class="button button-round" onclick="takePicture()" />
                         <input type="button" id="finishButton" value="Finish" class="button button-round" onclick="createLovedOne()" />
                     </div>
                     <div id="lovedOne"></div>
@@ -73,6 +74,21 @@
             document.getElementById("lovedOne").appendChild(div);
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
+          }
+          document.addEventListener("deviceready", onDeviceReady, false);
+          function onDeviceReady() {
+            console.log(navigator.camera);
+          }
+          function takePicture() {
+            navigator.camera.getPicture(onSucess, onFail, {quality: 70});
+          }
+          function onSucess(imageData) {
+            var img = document.createElement("img");
+            img.src = "data:image/jpg;base64, " + imageData;
+            document.getElementById("lovedOne").appendChild(img);
+          }
+          function onFail(message) {
+            alert('Failed due to: ' + message);
           }
       </script>
   </body>
