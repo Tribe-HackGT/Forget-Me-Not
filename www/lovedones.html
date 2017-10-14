@@ -38,7 +38,7 @@
               <div class="content-block-title">Your Loved Ones</div>
                 <div class="content-block">
                     <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
-                    <div id="input" >
+                    <div id="input" hidden>
                         <p>Enter the name of your loved one</p> 
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
@@ -53,7 +53,7 @@
         </div>
 <!-- Bottom Tabbar-->
       <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner"><a href="what%20I%20did.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="who%20I%20am.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="loved%20ones.html" class="tab-link active"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="Help%20Me.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
+        <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link active"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
@@ -61,6 +61,7 @@
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
 
+<<<<<<< HEAD:www/loved ones.html
 <<<<<<< HEAD
       <script>
           function addLovedOne() {
@@ -79,18 +80,6 @@
           document.addEventListener("deviceready", onDeviceReady, false);
           function onDeviceReady() {
             console.log(navigator.camera);
-          }
-          function takePicture() {
-            navigator.camera.getPicture(onSucess, onFail, {quality: 70});
-          }
-          function onSucess(imageData) {
-            var img = document.createElement("img");
-            img.src = "data:image/jpg;base64, " + imageData;
-            document.getElementById("lovedOne").appendChild(img);
-          }
-          function onFail(message) {
-            alert('Failed due to: ' + message);
-          }
 =======
       <script>
           function addLovedOne() {
@@ -106,7 +95,47 @@
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
           }
+          document.addEventListener("deviceready", onDeviceReady, false);
+          function onDeviceReady() {
+            console.log(navigator.camera);
+>>>>>>> master:www/lovedones.html
+          }
+          function takePicture() {
+            navigator.camera.getPicture(onSucess, onFail, {quality: 70});
+          }
+          function onSucess(imageData) {
+            var img = document.createElement("img");
+            img.src = "data:image/jpg;base64, " + imageData;
+            document.getElementById("lovedOne").appendChild(img);
+          }
+          function onFail(message) {
+            alert('Failed due to: ' + message);
+<<<<<<< HEAD:www/loved ones.html
+          }
+=======
+      <script>
+=======
+          }
+
+>>>>>>> master:www/lovedones.html
+          function addLovedOne() {
+            document.getElementById("input").style.display="block";
+            document.getElementById("addButton").style.display="none";
+            document.getElementById("inputName").value="";
+            document.getElementById("inputDescription").value="";
+          }
+          function createLovedOne() {
+            var div = document.createElement("div");
+            div.innerHTML = "<p>" + document.getElementById('inputName').value + "</p><p>" + document.getElementById('inputDescription').value + "</p>";
+            document.getElementById("lovedOne").appendChild(div);
+            document.getElementById("input").style.display="none";
+            document.getElementById("addButton").style.display="block";
+          }
+<<<<<<< HEAD:www/loved ones.html
 >>>>>>> origin/arthur
+=======
+
+>>>>>>> master:www/lovedones.html
       </script>
   </body>
 </html>

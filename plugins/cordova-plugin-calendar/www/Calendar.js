@@ -33,7 +33,7 @@ Calendar.prototype.requestReadWritePermission = function (callback) {
   cordova.exec(callback, null, "Calendar", "requestReadWritePermission", []);
 };
 
-Calendar.prototype.createCalendar = function (calendarNameOrOptionsObject, successCallback, errorCallback) {
+Calendar.createCalendar = function (calendarNameOrOptionsObject, successCallback, errorCallback) {
   var options;
   if (typeof calendarNameOrOptionsObject == "string") {
     options = {
