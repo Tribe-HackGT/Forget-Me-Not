@@ -71,6 +71,8 @@
           function createLovedOne() {
             var div = document.createElement("div");
             div.innerHTML = "<p>" + document.getElementById('inputName').value + "</p><p>" + document.getElementById('inputDescription').value + "</p>";
+            document.getElementById("inputName").style.display = "none";
+            document.getElementById("inputDescription").style.display = "none";
             document.getElementById("lovedOne").appendChild(div);
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
