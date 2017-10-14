@@ -1,30 +1,33 @@
 {
-  "prepare_queue": {
-    "installed": [],
-    "uninstalled": []
-  },
-  "config_munge": {
-    "files": {}
-  },
-  "installed_plugins": {
-    "cordova-plugin-calendar": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
     },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
+    "config_munge": {
+        "files": {}
     },
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
+    "installed_plugins": {
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-filepath": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        }
     },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
-    },
-    "cordova-plugin-filepath": {
-      "PACKAGE_NAME": "com.phonegap.forgetmenot"
-    }
-  },
-  "dependent_plugins": {}
+    "dependent_plugins": {}
 }
