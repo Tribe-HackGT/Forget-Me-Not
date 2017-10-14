@@ -1,18 +1,16 @@
 
 <script language="javascript">
-$scope.takePhoto = function() {
-    navigator.camera.getPicture(onSuccess, onFail, {
-        quality: 75,
-        targetWidth: 320,
-        targetHeight: 320,
-        destinationType: 0
-    });
-   function onSuccess(imageData) {
-         alert('onSuccess');
-         console.log("data:image/jpeg;base64,"+imageData);
+module camera{
+    export module Application{
+    document.addEventListener("deviceready", onDeviceReady, false);
     }
-
-    function onFail(message) {
-        alert('Failed because: ' + message);
+    function onDeviceReady() {
+        document.getElementById("takephoto").onclick = function() {
+            navigator.camera.getPicture(function(imageUri) {
+                var lastPhoto = document.getElementById("thephoto");
+                alert("nice photo");
+                lastphoto.innerHTML = "<img src> = '" +imageUri + "'style = 'width: 75%"; '/ >"
+            }, null, null)
+        }
     }
-};
+}
