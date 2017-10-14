@@ -27,6 +27,10 @@
         },
         "cordova-plugin-filepath": {
             "PACKAGE_NAME": "com.phonegap.forgetmenot"
+        },
+        "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.phonegap.forgetmenot"
         }
     },
     "dependent_plugins": {
