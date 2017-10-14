@@ -37,15 +37,20 @@
             <div class="page-content">
               <div class="content-block-title">Who I am</div>
                 <div class="content-block">     
-                    <input type="text" id="name" placeholder = "Name" />
-                    <input type = "text" id = "address" placeholder = "Address"/>
-                    
+                    <div contenteditable = "true">
+                        <input type="text" id="name" placeholder = "Name" />
+                        <input type = "text" id = "address" placeholder = "Address"/>
+                    </div>
                     <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
+                    <div contenteditable="true">
                     <div id="Form" hidden> </div>
                     <div id="aboutMe"></div>
-                    <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
+                    
+                        <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
+                    
                     <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
                     <div id = "bioOutput"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -61,12 +66,6 @@
     <script type="text/javascript" src="js/my-app.js"></script>
 
       <script>
-//          function addLovedOne() {
-//            document.getElementById("Form").style.display="block";
-//            document.getElementById("addButton").style.display="none";
-//            document.getElementById("inputName").value="";
-//            document.getElementById("inputDescription").value="";
-//          }
 
           function addAddressName() {
             var div = document.createElement("div");
@@ -75,7 +74,6 @@
             document.getElementById("Finish").style.display="none";
             document.getElementById("name").style.display="none";
             document.getElementById("address").style.display="none";
-//            document.getElementById("Finish").style.display="block";
             document.getElementById("name").value="";
             document.getElementById("address").value="";
           }
@@ -85,6 +83,46 @@
             document.getElementById("bioOutput").appendChild(div);
             document.getElementById("bioDesc").value = "";
           }
+        function store() {
+                var editBtn = document.getElementById('bioDesc');
+                var editables = document.querySelectorAll('#title, #author, #content')
+
+                editBtn.addEventListener('click', function(e) {
+              if (!editables[0].isContentEditable) {
+                editables[0].contentEditable = 'true';
+                editables[1].contentEditable = 'true';
+                editables[2].contentEditable = 'true';
+                editBtn.innerHTML = 'Save Changes';
+                editBtn.style.backgroundColor = '#6F9';
+              } else {
+                // Disable Editing
+                editables[0].contentEditable = 'false';
+                editables[1].contentEditable = 'false';
+                editables[2].contentEditable = 'false';
+                // Change Button Text and Color
+                editBtn.innerHTML = 'Enable Editing';
+                editBtn.style.backgroundColor = '#F96';
+                // Save the data in localStorage 
+                for (var i = 0; i < editables.length; i++) {
+                  localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+                }
+              }
+                  if (typeof(Storage) !== "undefined") {
+
+                  if (localStorage.getItem('title') !== null) {
+                    editables[0].innerHTML = localStorage.getItem('title');
+                  }
+
+                  if (localStorage.getItem('author') !== null) {
+                    editables[1].innerHTML = localStorage.getItem('author');
+                  }
+
+                  if (localStorage.getItem('content') !== null) {
+                    editables[2].innerHTML = localStorage.getItem('content');
+                  } 
+                }
+            });
+        }
 
       </script>
   </body>
