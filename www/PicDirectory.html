@@ -1,0 +1,16 @@
+
+<script language="javascript">
+module camera{
+    export module Application{
+    document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() {
+        document.getElementById("takephoto").onclick = function() {
+            navigator.camera.getPicture(function(imageUri) {
+                var lastPhoto = document.getElementById("thephoto");
+                alert("nice photo");
+                lastphoto.innerHTML = "<img src> = '" +imageUri + "'style = 'width: 75%"; '/ >"
+            }, null, null)
+        }
+    }
+}
