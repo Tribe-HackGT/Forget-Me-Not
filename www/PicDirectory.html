@@ -1,0 +1,18 @@
+
+<script language="javascript">
+$scope.takePhoto = function() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 75,
+        targetWidth: 320,
+        targetHeight: 320,
+        destinationType: 0
+    });
+   function onSuccess(imageData) {
+         alert('onSuccess');
+         console.log("data:image/jpeg;base64,"+imageData);
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+};
