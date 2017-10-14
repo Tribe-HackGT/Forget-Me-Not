@@ -36,13 +36,16 @@
           <div data-page="index-3" class="page">
             <div class="page-content">
               <div class="content-block-title">Who I am</div>
-                <div class="content-block">               
+                <div class="content-block">     
                     <input type="text" id="name" placeholder = "Name" />
                     <input type = "text" id = "address" placeholder = "Address"/>
-
-                    <input type="button" id="Finish" value="Finish" class="button button-round" onclick="createBio()" />
+                    
+                    <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
                     <div id="Form" hidden> </div>
                     <div id="aboutMe"></div>
+                    <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
+                    <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
+                    <div id = "bioOutput"></div>
               </div>
             </div>
           </div>
@@ -64,19 +67,23 @@
 //            document.getElementById("inputName").value="";
 //            document.getElementById("inputDescription").value="";
 //          }
-          function addPic() {
-              
-          }
-          function createBio() {
+
+          function addAddressName() {
             var div = document.createElement("div");
             div.innerHTML = "<p>" + document.getElementById('name').value + "</p><p>" + document.getElementById('address').value + "</p>";
             document.getElementById("aboutMe").appendChild(div);
             document.getElementById("Finish").style.display="none";
             document.getElementById("name").style.display="none";
             document.getElementById("address").style.display="none";
-            document.getElementById("button").style.display="block";
+//            document.getElementById("Finish").style.display="block";
             document.getElementById("name").value="";
             document.getElementById("address").value="";
+          }
+          function createBio() {
+            var div = document.createElement("div");
+            div.innerHTML = "<p>" + document.getElementById('bioDesc').value + "</p>";
+            document.getElementById("bioOutput").appendChild(div);
+            document.getElementById("bioDesc").value = "";
           }
 
       </script>
