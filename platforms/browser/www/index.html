@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/calendar.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,24 +45,18 @@
               <div class="content-block">
                 <p>This is an example of tab bar application layout. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
                 <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
-                <button onclick="hasReadPermission()">has read permission</button><br/><br/>
-                    <button onclick="requestReadPermission()">req read permission</button><br/><br/>
-                    <button onclick="hasWritePermission()">has write permission</button><br/><br/>
-                    <button onclick="requestWritePermission()">req write permission</button><br/><br/>
-                    <button onclick="hasReadWritePermission()">has readwrite permission</button><br/><br/>
-                    <button onclick="requestReadWritePermission()">req readwrite permission</button><br/><br/>
-                    <button onclick="openCalendar()">open calendar</button><br/><br/>
-                    <button onclick="listCalendars()">list calendars</button><br/><br/>
-                    <button onclick="createCalendar()">create calendar</button><br/><br/>
-                    <button onclick="deleteCalendar()">delete calendar</button><br/><br/>
-                    <button onclick="createCalendarEvent()">create event</button><br/><br/>
-                    <button onclick="createCalendarEventWithOptions()">create event with options</button><br/><br/>
-                    <button onclick="createCalendarEventInteractively()">create event interactively</button><br/><br/>
-                    <button onclick="createCalendarEventInteractivelyWithOptions()">create event interactively with options</button><br/><br/>
-                    <button onclick="deleteEvent()">delete event</button><br/><br/>
-                    <button onclick="findEventWithFilter()">find event with filter</button><br/><br/>
-                    <button onclick="findEventNoFilter()">find event no filter</button><br/><br/>
-                    <button onclick="listEventsInRange()">list events in range</button>
+                    <div id="calendar"></div>
+                    
+                    <script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
+                    <script type="text/javascript" src="js/vendor/underscore-min.js"></script>
+                    <script type="text/javascript" src="js/calendar.js"></script>
+                    <script type="text/javascript">
+                        var calendar = $("#calendar").calendar(
+                            {
+                                tmpl_path: "/tmpls/",
+                                events_source: function () { return []; }
+                            });			
+                    </script>
                 
                   <p>And of course, your favorite panels are still here: <a href="#" class="open-panel">left</a> and  <a href="#" data-panel="right" class="open-panel">right</a></p>
                 <p>Icons and their labels in tab bar below are just for example and don't related to their content.</p>
