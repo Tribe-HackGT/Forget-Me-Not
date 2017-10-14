@@ -38,7 +38,7 @@
               <div class="content-block-title">Your Loved Ones</div>
                 <div class="content-block">
                     <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
-                    <div id="input" hidden>
+                    <div id="input" >
                         <p>Enter the name of your loved one</p> 
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
@@ -61,6 +61,7 @@
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
 
+<<<<<<< HEAD
       <script>
           function addLovedOne() {
             document.getElementById("input").style.display="block";
@@ -90,6 +91,22 @@
           function onFail(message) {
             alert('Failed due to: ' + message);
           }
+=======
+      <script>
+          function addLovedOne() {
+            document.getElementById("input").style.display="block";
+            document.getElementById("addButton").style.display="none";
+            document.getElementById("inputName").value="";
+            document.getElementById("inputDescription").value="";
+          }
+          function createLovedOne() {
+            var div = document.createElement("div");
+            div.innerHTML = "<p>" + document.getElementById('inputName').value + "</p><p>" + document.getElementById('inputDescription').value + "</p>";
+            document.getElementById("lovedOne").appendChild(div);
+            document.getElementById("input").style.display="none";
+            document.getElementById("addButton").style.display="block";
+          }
+>>>>>>> origin/arthur
       </script>
   </body>
 </html>
