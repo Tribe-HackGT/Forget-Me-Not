@@ -35,28 +35,23 @@
         <!-- We can make with view with navigation, let's add Top Navbar-->
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="center sliding">About You </div>
+            <div class="center sliding">Bio </div>
+               
           </div>
         </div>
         <div class="pages navbar-through">
           <div data-page="index-2" class="page">
             <div class="page-content">
               <div class="content-block">
-                  <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
-                    <div id="input" hidden>
-                <form>
-                    
-                  Name: <input type="text" name="name" id="name" value="" />
-                  Address: <input type="text" name="address" id="address" value="" />
-                   <input type="button" id="finishButton" value="Finish" class="button button-round" onclick="createBio()" />
-                </form> 
-         
-                <div id="aboutMe"></div>
+<!--                <div id="aboutMe"></div>-->
 <!--
-                   <form action="get-method.php" method="get"> 
-                       <input type="text" name="firstname" placeholder="First Name" /> <input type="text" name="lastname" placeholder="Last Name" /> <input type="submit" name="submit" /> </form> 
--->
+                   <form action="post-method.php" method="post">
+                   <input type="text" name="firstname" placeholder="First Name" />
+                   <input type="text" name="lastname" placeholder="Last Name" />
 
+                   <input type="submit" name="submit" />
+                   </form> 
+-->
               </div>
             </div>  
           </div>
@@ -67,23 +62,9 @@
       </div>
    </div>
     <!-- Path to Framework7 Library JS-->
-    <script>
-        function hideButton() {
-            document.getElementById("input").style.display="block";
-            document.getElementById("addButton").style.display="none";
-            document.getElementById("inputName").value="";
-            document.getElementById("inputDescription").value="";
-          }
-        function createBio() {
-            var div = document.createElement("div");
-            
-//            document.location = 'FinalForm.html'
-//            locationObj = document.location
-            div.innerHTML = "<p>" + document.getElementById('name').value + "</p><p>" + document.getElementById('address').value + "</p>";
-            
-            document.getElementById("aboutMe").appendChild(div);
-            document.getElementById("input").style.display="none";
-          }
+    <script language="JavaScript">
+ 
+        processForm();
     </script>
   </body>
 </html>
