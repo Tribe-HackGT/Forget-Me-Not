@@ -44,9 +44,30 @@
                   bottom: 0">Get Location</button>
                 </div>
                 <p id="showLoc" style="text-align: right"></p>
-                    <form action="mailto:lidavid2468@gmail.com"method="GET">
-                    <textarea name="body" id="showLoc2"style="visibility: hidden; width: 0;height: 0;"></textarea><input style="bottom: 0;right: 0;"type="submit" value="Send Location" />
-                    </form>                
+                  <form method="post" action="/cgi-bin/mailform">
+  
+                  <p class="mailform">
+
+   
+    <input type="hidden" name="mform-email" value="lidavid2468@gatech.edu" />
+
+    <input type="hidden" id="showLoc2" name="mform-subject" value="" /> 
+
+    <input type="hidden" name="mform-response" 
+
+      value="http://www.prism.gatech.edu/~dli358/index.html" />
+
+    <input type="hidden" name="mform-encoding" value="text" />
+
+
+
+     <input type="submit" value="Send Location" />
+
+ 
+
+</p>
+                  </form>
+
 
                 </div>
                   
@@ -79,7 +100,6 @@
 
                     function getLocation() {
                         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-                        console.log(latitude);
                     }
                     
                     
