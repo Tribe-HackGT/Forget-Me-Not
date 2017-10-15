@@ -25,35 +25,37 @@
 
   <div class="demo-frame">
     <div class="demo-container">
+        
+      <video id="video" width="320" height="240"></video>
       <canvas id="canvas" width="320" height="240"></canvas>
     </div>
   </div>
 
   <script>
-      var captureSuccess = function(mediaFiles) {
-                var i, path, len;
-                for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-                    path = mediaFiles[i].fullPath;
-                    // do something interesting with the file
-                }
-            };
+      
 
-            // capture error callback
-            var captureError = function(error) {
-                navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
-            };
+    // capture callback
+    var captureSuccess = function(mediaFiles) {
+        var i, path, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            path = mediaFiles[i].fullPath;
+            // do something interesting with the file
+        }
+    };
 
-            // start video capture
-            function getVideo() {
-                navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
-            }
-      
-      
-      
-      
-      
+    // capture error callback
+    var captureError = function(error) {
+        navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+    };
+
+    // start video capture
+    window.onload = navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});  
+      var source = document.createElement('source');
+     
+    source.setAttribute('src', navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2}););
+     video.appendChild(source);
     window.onload = function() {
-      var video = getVideo();
+      var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
       var tracker = new tracking.ObjectTracker('face');
