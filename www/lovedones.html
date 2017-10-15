@@ -11,7 +11,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body>
+  <body onbeforeunload="handleOnClose(event)" onload="loadData()">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -39,13 +39,13 @@
                 <div class="content-block">
                     <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
                     <div id="input" hidden>
+                        <p><img id="profileImg" src="DefaultProfileImg.png" />
+                        <input type="file" accept="image/*" onchange="picChange(event)"/></p>
+                        <canvas id="capturedPhoto"></canvas>
                         <p>Enter the name of your loved one</p> 
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
                         <textarea id="inputDescription"></textarea>
-<!--                        <input type="button" id="pictureButton" value="Add Photo" class="button button-round" onclick="takePicture()" />-->
-                        <p><input type="file" accept="image/*" onchange="picChange(event)"/></p>
-                        <canvas id="capturedPhoto"></canvas>
                         <input type="button" id="finishButton" value="Finish" class="button button-round" onclick="createLovedOne()" />
                     </div>
                     <div id="lovedOne"></div>
@@ -64,7 +64,31 @@
     <script type="text/javascript" src="js/my-app.js"></script>
 
       <script>
-          var currentImage;
+          function handleOnClose(event)
+          {
+              if (typeof(Storage) !== "undefined") {
+                // Store
+                localStorage.setItem("numOfLovedOnes", "" + numOfLovedOnes);
+                localStorage.setItem("lovedOne", document.getElementById("lovedOne").innerHTML);
+                localStorage.setItem("images", images);
+            } else {
+                console.log("Sorry, your browser does not support Web Storage");
+            }
+          }
+          function loadData()
+          {
+              // Retrieve
+                numOfLovedOnes = localStorage.getItem("numOfLovedOnes");
+                document.getElementById("lovedOne").innerHTML = localStorage.getItem("lovedOne");
+                images = localStorage.getItem("images");
+                console.log(numOfLovedOnes);
+                for (x = 0; x < numOfLovedOnes; x++) 
+                {
+                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
+                }
+          }
+          var numOfLovedOnes = 0;
+          var images = [];
           function addLovedOne() {
             document.getElementById("input").style.display="block";
             document.getElementById("addButton").style.display="none";
@@ -74,22 +98,14 @@
           }
           function createLovedOne() {
             var div = document.createElement("div");
-            div.innerHTML = "<p>" + document.getElementById('inputName').value + "</p><p>" + document.getElementById('inputDescription').value + "</p>";
-            document.getElementById("inputName").style.display = "none";
-            document.getElementById("inputDescription").style.display = "none";
-            document.getElementById("lovedOne").appendChild(div);
-            document.getElementById("input").style.display="none";
-            document.getElementById("addButton").style.display="block";
-
-          }
-          function createLovedOne() {
-            var div = document.createElement("div");
 //            div.innerHTML = "<p>" + document.getElementById('inputName').value + "</p><p>" + document.getElementById('inputDescription').value + "</p>";
             div.innerHTML = generateNameDesHTML(document.getElementById('inputName').value, document.getElementById('inputDescription').value);
+            document.getElementById("lovedOne").appendChild(generateImage(document.getElementById("profileImg")));
             document.getElementById("lovedOne").appendChild(div);
-            document.getElementById("lovedOne").appendChild(generateImage(currentImage));
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
+            document.getElementById("profileImg").src="DefaultProfileImg.png";
+            numOfLovedOnes++;
           }
           function generateNameDesHTML(name, description)
           {
@@ -97,10 +113,12 @@
           }
           function generateImage(image)
           {
+              images[numOfLovedOnes] = image.src;
               var canvas = document.createElement("canvas");
+              canvas.id = "canvas" + numOfLovedOnes;
               canvas.width = image.width;
               canvas.height = image.height;
-              canvas.getContext("2d").drawImage(image, 0, 0, canvas.height, canvas.width);
+              canvas.getContext("2d").drawImage(image, 0, 0, image.height, image.width);
               return canvas;
           }
         function picChange(evt) {
@@ -127,22 +145,22 @@
                         }
                     }
                 }
-                
-                var photoCanvas = document.getElementById("capturedPhoto");
+//                var photoCanvas = document.getElementById("capturedPhoto");
                 var photo = new Image();
                 photo.onload = function(){
-                    //draw photo into canvas when ready
-                    photoCanvas.height = photo.height;
-                    photoCanvas.width = photo.width;
-                    photoCanvas.getContext("2d").drawImage(photo, 0, 0, photoCanvas.height, photoCanvas.width);
-                    //release object url
+//                    //draw photo into canvas when ready
+//                    photoCanvas.height = photo.height;
+//                    photoCanvas.width = photo.width;
+//                    photoCanvas.getContext("2d").drawImage(photo, 0, 0, photoCanvas.height, photoCanvas.width);
+//                    //release object url
                     windowURL.revokeObjectURL(picURL);
                 };
-                //photo.height = 600;
-                //load photo into canvas
-                photo.src = picURL;
+                document.getElementById("profileImg").src = picURL;
+//                //photo.height = 600;
+//                //load photo into canvas
+//                photo.src = picURL;
                 
-                currentImage = photo;
+//                currentImage = photo;
             }
         }
       </script>
