@@ -40,8 +40,8 @@
                     <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
                     <div id="input" hidden>
                         <p><img id="profileImg" src="DefaultProfileImg.png" />
-                        <input type="file" accept="image/*" onchange="picChange(event)"/></p>
-                        <canvas id="capturedPhoto"></canvas>
+                        <p><input type="file" accept="image/*" onchange="picChange(event)"/></p>
+<!--                        <canvas id="capturedPhoto"></canvas>-->
                         <p>Enter the name of your loved one</p> 
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
@@ -110,11 +110,11 @@
             div.innerHTML = generateNameDesHTML(document.getElementById('inputName').value, document.getElementById('inputDescription').value);
             document.getElementById("lovedOne").appendChild(generateImage(document.getElementById("profileImg")));
             document.getElementById("lovedOne").appendChild(div);
-            div.innerHTML += "<p>";
-            document.getElementById("lovedOne").appendChild(generateEditButton());
-              div.innerHTML += "</p><p>";
-            document.getElementById("lovedOne").appendChild(generateDeleteButton());
-              div.innerHTML += "</p>";
+            div.innerHTML += "<p></p>";
+//            document.getElementById("lovedOne").appendChild(generateEditButton());
+//              div.innerHTML += "</p><p>";
+//            document.getElementById("lovedOne").appendChild(generateDeleteButton());
+//              div.innerHTML += "</p>";
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
             document.getElementById("profileImg").src="DefaultProfileImg.png";
