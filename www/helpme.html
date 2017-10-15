@@ -11,7 +11,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body>
+  <body onload="loadIn();">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -40,12 +40,34 @@
             <div class="navbar">
               <div class="navbar-inner">
                 <div style="justify-content: center;">
-                  <button onClick="getLocation()" class="botton botton-round" type="button" style   ="position:relative;
-                  bottom: 0">Get Location</button>
+                  <button onClick="getLocation()" class="button button-big button-round" type="button" style   ="position:relative;
+                  bottom: 5%">Get Location</button>
                 </div>
                 <p id="showLoc" style="text-align: right"></p>
-                   <button onClick="sendLocation()" class="botton botton-round" type="button" style   ="position:relative;
-                  bottom: 0">Send Location</button>
+                  <form method="post" action="/cgi-bin/mailform">
+  
+                  <p class="mailform">
+
+   
+                    <input type="hidden" name="mform-email" value="lidavid2468@gatech.edu" />
+
+                    <input type="hidden" id="showLoc2" name="mform-subject" value="" /> 
+
+                    <input type="hidden" name="mform-response" 
+
+                      value="http://www.prism.gatech.edu/~dli358/index.html" />
+
+                    <input type="hidden" name="mform-encoding" value="text" />
+
+
+
+                     <input type="submit" value="Send Location" class="button button-big button-round"  style   ="position:relative;
+                  bottom: 5%"/>
+
+ 
+
+                    </p>
+                  </form>
 
 
                 </div>
@@ -53,7 +75,7 @@
               </div>
             </div>
 
-              <div id="googleMap" style="position: absolute; width:100%;height:90%;bottom: 0">
+              <div id="googleMap" style="position: absolute; width:100%;height:91.5%;bottom: 0">
 
                 <script>
                     
@@ -113,5 +135,31 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script src="https://smtpjs.com/smtp.js"></script>
     <!-- Path to your app js-->
-  </body>
+        <script>
+                    function loadIn(position) {
+                            var lat = 38.8697566
+                            var long = -77.0463181
+                            var mapProp= {
+                            center:new google.maps.LatLng(lat,long),
+                            zoom:10,
+                            };
+                            var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                    };
+
+                    // onError Callback receives a PositionError object
+                    //
+                    function onError(error) {
+                        alert('code: '    + error.code    + '\n' +
+                              'message: ' + error.message + '\n');
+                    }
+
+                    function getLocation() {
+                        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                    }
+                    
+                    
+                    
+                    
+        </script>
+    </body>
 </html>

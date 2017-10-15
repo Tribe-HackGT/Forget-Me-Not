@@ -11,7 +11,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body onbeforeunload="handleOnClose(event)" onload="loadData()">
+  <body onbeforeunload="handleOnClose(event)">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -40,8 +40,8 @@
                     <input type="button" id="addButton" value="Add Loved One" onclick="addLovedOne()" class="button button-big button-round" />
                     <div id="input" hidden>
                         <p><img id="profileImg" src="DefaultProfileImg.png" />
-                        <input type="file" accept="image/*" onchange="picChange(event)"/></p>
-                        <canvas id="capturedPhoto"></canvas>
+                        <p><input type="file" accept="image/*" onchange="picChange(event)"/></p>
+<!--                        <canvas id="capturedPhoto"></canvas>-->
                         <p>Enter the name of your loved one</p> 
                         <input type="text" id="inputName"/>
                         <p>Enter a description of your loved one</p>
@@ -61,34 +61,42 @@
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
+<!--    <script type="text/javascript" src="js/my-app.js"></script>-->
 
       <script>
+          var numOfLovedOnes = 0;
           function handleOnClose(event)
           {
               if (typeof(Storage) !== "undefined") {
                 // Store
                 localStorage.setItem("numOfLovedOnes", "" + numOfLovedOnes);
                 localStorage.setItem("lovedOne", document.getElementById("lovedOne").innerHTML);
-                localStorage.setItem("images", images);
             } else {
                 console.log("Sorry, your browser does not support Web Storage");
             }
           }
-          function loadData()
-          {
-              // Retrieve
-                numOfLovedOnes = localStorage.getItem("numOfLovedOnes");
-                document.getElementById("lovedOne").innerHTML = localStorage.getItem("lovedOne");
-                images = localStorage.getItem("images");
-                console.log(numOfLovedOnes);
-                for (x = 0; x < numOfLovedOnes; x++) 
-                {
-                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
-                }
-          }
-          var numOfLovedOnes = 0;
-          var images = [];
+//          function loadData()
+//          {
+//              // Retrieve
+//                numOfLovedOnes = localStorage.getItem("numOfLovedOnes");
+//                document.getElementById("lovedOne").innerHTML = localStorage.getItem("lovedOne");
+//                
+//                console.log(numOfLovedOnes);
+//
+//                for (var x = 0; x < numOfLovedOnes; x++)
+//                {
+//                    console.log(x+" "+localStorage.getItem("images" + x));
+//                    var img = new Image();
+//                    
+//                    img.onload = function() {
+//                        document.getElementById("canvas" + x).getContext("2d").drawImage(img, 0, 0, img.height, img.width);
+//                        //window.URL.revokeObjectURL(img.src);
+//                    };
+//                    img.src = localStorage.getItem("images" + x);
+//                
+//                }
+//              
+//          }
           function addLovedOne() {
             document.getElementById("input").style.display="block";
             document.getElementById("addButton").style.display="none";
@@ -102,6 +110,11 @@
             div.innerHTML = generateNameDesHTML(document.getElementById('inputName').value, document.getElementById('inputDescription').value);
             document.getElementById("lovedOne").appendChild(generateImage(document.getElementById("profileImg")));
             document.getElementById("lovedOne").appendChild(div);
+            div.innerHTML += "<p></p>";
+//            document.getElementById("lovedOne").appendChild(generateEditButton());
+//              div.innerHTML += "</p><p>";
+//            document.getElementById("lovedOne").appendChild(generateDeleteButton());
+//              div.innerHTML += "</p>";
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
             document.getElementById("profileImg").src="DefaultProfileImg.png";
@@ -111,9 +124,31 @@
           {
               return "<p>" + name + "</p><p>" + description + "</p>";
           }
+          function generateEditButton()
+          {
+              var editButton = document.createElement("input");
+              editButton.type = "button";
+              editButton.id = "editButton" + numOfLovedOnes;
+              editButton.value = "Edit";
+              editButton.class = "button button-round";
+              return editButton;
+          }
+          function generateDeleteButton()
+          {
+              var deleteButton = document.createElement("input");
+              deleteButton.type = "button";
+              deleteButton.id = "deleteButton" + numOfLovedOnes;
+              deleteButton.value = "Delete";
+              deleteButton.class = "button button-round";
+              return deleteButton;
+          }
           function generateImage(image)
           {
-              images[numOfLovedOnes] = image.src;
+              console.log(image.src);
+//              console.log(images[numOfLovedOnes]);
+//              console.log(images);
+              localStorage.setItem("images" + numOfLovedOnes, image.src);
+              
               var canvas = document.createElement("canvas");
               canvas.id = "canvas" + numOfLovedOnes;
               canvas.width = image.width;
@@ -121,6 +156,14 @@
               canvas.getContext("2d").drawImage(image, 0, 0, image.height, image.width);
               return canvas;
           }
+//          function delete()
+//          {
+//              
+//          }
+//          function edit()
+//          {
+//              
+//          }
         function picChange(evt) {
             var fileInput = evt.target.files;
             
@@ -146,15 +189,7 @@
                     }
                 }
 //                var photoCanvas = document.getElementById("capturedPhoto");
-                var photo = new Image();
-                photo.onload = function(){
-//                    //draw photo into canvas when ready
-//                    photoCanvas.height = photo.height;
-//                    photoCanvas.width = photo.width;
-//                    photoCanvas.getContext("2d").drawImage(photo, 0, 0, photoCanvas.height, photoCanvas.width);
-//                    //release object url
-                    windowURL.revokeObjectURL(picURL);
-                };
+
                 document.getElementById("profileImg").src = picURL;
 //                //photo.height = 600;
 //                //load photo into canvas
