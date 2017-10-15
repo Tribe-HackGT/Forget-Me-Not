@@ -67,7 +67,7 @@
                         <p>
                             Photo:
                         </p>
-                        <canvas id="capturedPhoto" width="500" height="400">    
+                        <canvas id="capturedPhoto" width="500" height="400"></canvas>   
                     </div>
 <!--                    </div>-->
                 </div>
@@ -83,12 +83,13 @@
    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
-
+        
       <script>
+          console.log("fyhg")
     <!-- Path to your app js-->
           function addAddressName() {
             var div = document.createElement("div");
-            div.innerHTML = "<p> Name: " + document.getElementById("name").value + "</p><p> Address: "+ document.getElementById('address').value;
+            div.innerHTML = "<p> Name: " + document.getElementById("name").value + "</p><p> Address: "+ document.getElementById('address').value +"</p>" ;
             document.getElementById("aboutMe").appendChild(div);
             document.getElementById("Finish").style.display="none";
             document.getElementById("name").style.display="none";
@@ -106,9 +107,8 @@
           {
               if (typeof(Storage) !== "undefined") {
                 // Store
-                localStorage.setItem("name", document.getElementById("name").innerHTML);
-                localStorage.setItem("address", document.getElementById("address").innerHTML);
-                localStorage.setItem("bioDesc", document.getElementById("bioDesc").innerHTML);
+                localStorage.setItem("aboutMe", document.getElementById("aboutMe").innerHTML);
+                localStorage.setItem("bioOutput", document.getElementById("bioOutput").innerHTML);
                 
 //                localStorage.setItem("images", capturedPhoto);
             } else {
@@ -119,9 +119,8 @@
           {
               // Retrieve
                 
-                document.getElementById("address").innerHTML = localStorage.getItem("address");
-                document.getElementById("bioDesc").innerHTML = localStorage.getItem("bioDesc");
-                document.getElementById("name").innerHTML = localStorage.getItem("name");
+                document.getElementById("aboutMe").innerHTML = localStorage.getItem("aboutMe");
+                document.getElementById("bioOutput").innerHTML = localStorage.getItem("bioOutput");
 //                document.getElementById("images").innerHTML = localStorage.getItem("images");
 //                for (x = 0; x < numOfLovedOnes; x++) 
 //                {
