@@ -41,15 +41,13 @@
               <div class="navbar-inner">
                 <div style="justify-content: center;">
                   <button onClick="getLocation()" class="botton botton-round" type="button" style   ="position:relative;
-                  margin: %50;">Get Location</button>
+                  bottom: 0">Get Location</button>
                 </div>
-                <p id="showLoc" style="text-align: center"></p>
-                <div style="justify-content: center;">
-                    <form action="mailto:lidavid2468@gmail.com" method="GET">
-                    <textarea name="body" id="showLoc2"></textarea>
-                    <input type="submit" value="Send Location" />
+                <p id="showLoc" style="text-align: right"></p>
+                    <form action="mailto:lidavid2468@gmail.com"method="GET">
+                    <textarea name="body" id="showLoc2"style="visibility: hidden; width: 0;height: 0;"></textarea><input style="bottom: 0;right: 0;"type="submit" value="Send Location" />
                     </form>                
-                </div>
+
                 </div>
                   
               </div>
@@ -90,6 +88,13 @@
                 </script>
 
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLk2KkmqWfoPP0oiB3y1qnqeW4u8MwfuU&callback=myMap"></script>
+                <script>$(document).ready(function() {
+                $('#bt1').click(function() {
+                $('#fr1').attr('action','mailto:test@test.com?subject=' +
+                $('#tb1').val() + '&body=' + $('#tb2').val());
+                $('#fr1').submit();
+                    });
+                });</script>
                   </div>
 
               
