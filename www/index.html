@@ -44,18 +44,13 @@
           <div data-page="index-1" class="page">
             <!-- Scrollable page content-->
             <div class="page-content">
-              <center><div class="content-block-title">What I did</div>
-              <div class="content-block">
-              <center>  <p>Use this calendar to keep track of what you did from day to day. Looking at each of the days also allows you to add reminds for future events.</p>
-                
-                  <iframe src="https://calendar.google.com/calendar/embed?src=5fj9un9erf0rrrjh4nb7evhq04%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="80%" height="600" frameborder="0" scrolling="no" name = "calendar"></iframe>  </center>
-                  <input type="button" id="Finish" value="Edit Calendar" class="button button-round" onclick="doGet()" />
-                
-                  
-              </div>
-                  
+              <div class="content-block-title">What I did</div>
+                  <div class="content-block">
+                        <button onclick="openCalendar()">open calendar</button><br/><br/>
+                        <button onclick="createCalendarEventInteractivelyWithOptions()">create event</button><br/><br/>
+                  </div>
+            </div>  
           </div>
-        </div>
       </div>
              </div>
           
@@ -63,15 +58,14 @@
        <!-- Bottom Tabbar-->
       
         <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner"><a href="index.html" class="tab-link active"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
-      </div>
-      </div>
+            <div class="toolbar-inner"><a href="index.html" class="tab-link active"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
+        </div>
     </div>
-      </div>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
     <script> 
 //    jQuery(document).ready(function(){ 
 //    iCal = new Web2Cal( "calendarContainer",

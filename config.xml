@@ -25,11 +25,11 @@
         <preference name="BackupWebStorage" value="none" />
     </platform>
     <preference name="DisallowOverscroll" value="true" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
+    <preference name="android-build-tool" value="gradle" />
+    <engine name="android" spec="~6.3.0" />
+    <engine name="ios" spec="~4.5.2" />
+    <plugin name="cordova-plugin-calendar" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
-    <plugin name="cordova-plugin-calendar" />
-    <preference name="android-build-tool" value="gradle" />
-    <engine name="ios" spec="~4.5.2" />
-    <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
 </widget>
