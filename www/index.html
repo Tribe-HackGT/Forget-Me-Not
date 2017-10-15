@@ -36,6 +36,10 @@
     <!-- Views, and they are tabs-->
     <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
     <div class="views tabs toolbar-through">
+        <center>
+            <img src="js/forgetme.png" style="width:15%;height:20%;align-content: center;">
+        </center>
+        
       <!-- Your first view, it is also a .tab and should have "active" class to make it visible by default-->
       <div id="view-1" class="view view-main tab active">
         <!-- Pages-->
@@ -44,10 +48,13 @@
           <div data-page="index-1" class="page">
             <!-- Scrollable page content-->
             <div class="page-content">
-              <div class="content-block-title" style="text-align: center">What I did</div>
+              <div class="content-block-title" style="text-align: center; font-family: pegasus; font-size: 40px">Forget Me Not</div>
                   <div class="content-block" style="align-items: center">
-                        <button class="button button-big button-round" onclick="openCalendar()" style="left:47.5%">open calendar</button><br/><br/>
-                        <button class="button button-big button-round" onclick="createCalendarEventInteractivelyWithOptions()" style="left:48%">create event</button><br/><br/>
+                      <center>
+                        <button class="button button-big button-round" onclick="openCalendar()">open calendar</button><br/><br/>
+                        <button class="button button-big button-round" onclick="createCalendarEventInteractivelyWithOptions()">create event</button><br/><br/>
+                      </center>
+                        
                   </div>
             </div>  
           </div>
