@@ -20,19 +20,40 @@
 </head>
 <body>
   <div class="demo-title">
-    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － get user's webcam and detect faces</p>
+    <p><a href="http://hack.gt" target="_parent">tracking.js</a> － get user's webcam and detect faces</p>
   </div>
 
   <div class="demo-frame">
     <div class="demo-container">
-      <video id="video" width="320" height="240" preload autoplay loop muted></video>
       <canvas id="canvas" width="320" height="240"></canvas>
     </div>
   </div>
 
   <script>
+      var captureSuccess = function(mediaFiles) {
+                var i, path, len;
+                for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+                    path = mediaFiles[i].fullPath;
+                    // do something interesting with the file
+                }
+            };
+
+            // capture error callback
+            var captureError = function(error) {
+                navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+            };
+
+            // start video capture
+            function getVideo() {
+                navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+            }
+      
+      
+      
+      
+      
     window.onload = function() {
-      var video = document.getElementById('video');
+      var video = getVideo();
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
       var tracker = new tracking.ObjectTracker('face');
