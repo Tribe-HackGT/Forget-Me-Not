@@ -48,6 +48,8 @@
                     <div id="Form" hidden> </div>
                     <div id="aboutMe"></div>
                     <div id = "bioOutput"></div>
+                    
+                    <input type="file" accept="image/*" onchange="picChange(event)"/>
                     <input type="button" id="Finish" value="Add Name and Address" class="button button-round" onclick="addAddressName()" />
                     
                     <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
@@ -59,14 +61,12 @@
                     
                     <div>
                         <p> 
-                        Choose a picture of yourself
+                            Choose a picture of yourself
                         </p>
-                            <input type="file" accept="image/*" onchange="picChange(event)"/>
                         <p>
-                        Photo:
+                            Photo:
                         </p>
-                            <canvas id="capturedPhoto" width="500" height="400">
-                        </canvas>
+                        <canvas id="capturedPhoto" width="500" height="400">    
                     </div>
 <!--                    </div>-->
                 </div>
@@ -103,14 +103,13 @@
           }
           function handleOnClose(event)
           {
-              
               if (typeof(Storage) !== "undefined") {
                 // Store
                 localStorage.setItem("name", document.getElementById("name").innerHTML);
                 localStorage.setItem("address", document.getElementById("address").innerHTML);
                 localStorage.setItem("bioDesc", document.getElementById("bioDesc").innerHTML);
                 
-//                localStorage.setItem("images", photoCanvas);
+//                localStorage.setItem("images", capturedPhoto);
             } else {
                 console.log("Sorry, your browser does not support Web Storage");
             }
@@ -122,7 +121,7 @@
                 document.getElementById("address").innerHTML = localStorage.getItem("address");
                 document.getElementById("bioDesc").innerHTML = localStorage.getItem("bioDesc");
                 document.getElementById("name").innerHTML = localStorage.getItem("name");
-//                document.getElementById("images").innerHTML = localStorage.getItem("capturedPhotos");
+//                document.getElementById("images").innerHTML = localStorage.getItem("images");
 //                for (x = 0; x < numOfLovedOnes; x++) 
 //                {
 //                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
