@@ -11,7 +11,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body onload="checkEdits()">
+  <body onbeforeunload="handleOnClose(event)" onload="loadData()">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -37,7 +37,7 @@
             <div class="page-content">
               <div class="content-block-title">Who I am</div>
                 <div class="content-block">     
-                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "saveEdits()"/>             </div>     
+<!--                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "loadData()"/>             </div>     -->
                     <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
                     
                     
@@ -57,6 +57,7 @@
                     <div id = "bioOutput"></div>
                     </div>
                 </div>
+                </div>
               </div>
             </div>
 <!-- Bottom Tabbar-->
@@ -65,24 +66,14 @@
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript">
+   <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+
+      <script>
     <!-- Path to your app js-->
 
-          function saveEdits() {
-
-            //get the editable element
-            var editElem = document.getElementById("edit");
-
-            //get the edited element content
-            var userVersion = editElem.innerHTML;
-
-            //save the content to local storage
-            localStorage.userEdits = userVersion;
-
-            //write a confirmation to the user
-            document.getElementById("update").innerHTML="Edits saved!";
-
-         }
+          
           function addAddressName() {
             var div = document.createElement("div");
             div.innerHTML =  "<p>" + "Name:" + document.getElementById("name").value + "</p><p>" + "Address:" + document.getElementById('address').value + "</p>";
@@ -99,59 +90,30 @@
             document.getElementById("bioOutput").appendChild(div);
             document.getElementById("bioDesc").value = "";
           }
-          function checkEdits() {
-
-            //find out if the user has previously saved edits
-            if(localStorage.userEdits!=null)
-            document.getElementById("edit").
-            innerHTML = localStorage.userEdits;
+          function handleOnClose(event)
+          {
+              if (typeof(Storage) !== "undefined") {
+                // Store
+                localStorage.setItem("name", document.getElementById("name").value);
+                localStorage.setItem("address", document.getElementById("address").value;);
+                localStorage.setItem("Biography", document.getElementById("bioDesc").Value)
+                localStorage.setItem("images", images);
+            } else {
+                console.log("Sorry, your browser does not support Web Storage");
+            }
           }
-//        function store() {
-//                var editBtn = document.getElementById("saveButton");
-//                var editables = document.querySelectorAll("*")
-//
-//                editBtn.addEventListener('click', function(e) {
-//              if (!editables[0].isContentEditable) {
-//                editables[0].contentEditable = 'true';
-//                editables[1].contentEditable = 'true';
-//                editables[2].contentEditable = 'true';
-//                editBtn.innerHTML = 'Save Changes';
-//                editBtn.style.backgroundColor = '#6F9';
-//              } else {
-//                // Disable Editing
-//                editables[0].contentEditable = 'false';
-//                editables[1].contentEditable = 'false';
-//                editables[2].contentEditable = 'false';
-//                // Change Button Text and Color
-//                editBtn.innerHTML = 'Enable Editing';
-//                editBtn.style.backgroundColor = '#F96';
-//                // Save the data in localStorage 
-//                for (var i = 0; i < editables.length; i++) {
-//                  localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+          function loadData()
+          {
+              // Retrieve
+                address = localStorage.getItem("address");
+                Biography = localStorage.getItem("bioDesc");
+                name = localStorage.getItem("name");
+                images = localStorage.getItem("images");
+//                for (x = 0; x < numOfLovedOnes; x++) 
+//                {
+//                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
 //                }
-//              }
-//                  if (typeof(Storage) !== "undefined") {
-//
-//                  if (localStorage.getItem('title') !== null) {
-//                    editables[0].innerHTML = localStorage.getItem('title');
-//                  }
-//
-//                  if (localStorage.getItem('author') !== null) {
-//                    editables[1].innerHTML = localStorage.getItem('author');
-//                  }
-//
-//                  if (localStorage.getItem('content') !== null) {
-//                    editables[2].innerHTML = localStorage.getItem('content');
-//                  } 
-//                }
-//            });
-//            setInterval(function() {
-//              for (var i = 0; i < editables.length; i++) {
-//                localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
-//              }
-//            }, 5000);
-//        }
-
+          }
       </script>
   </body>
 </html>
