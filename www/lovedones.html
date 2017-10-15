@@ -151,9 +151,9 @@
               
               var canvas = document.createElement("canvas");
               canvas.id = "canvas" + numOfLovedOnes;
-              canvas.width = image.width;
-              canvas.height = image.height;
-              canvas.getContext("2d").drawImage(image, 0, 0, image.height, image.width);
+              canvas.width = image.width/2;
+              canvas.height = image.height/2;
+              canvas.getContext("2d").drawImage(image, 0, 0, image.height/2, image.width/2);
               return canvas;
           }
 //          function delete()
