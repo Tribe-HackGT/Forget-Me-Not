@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <style type="text/css">
+        body, html {font-family:sans-serif; background-color:#000000;}
+/*
+        div {width:80%; margin:auto; background-color:#ffffff; padding:5%; border:2px solid #990066; text-align:center; border-radius:10px;}
+        canvas {padding:5%; border:2px solid #330000; background-color:#660000; border-radius:10px;}
+*/
+      </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +18,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body>
+  <body onbeforeunload="handleOnClose(event)" onload="loadData()">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -32,7 +39,168 @@
     <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
     <div class="views tabs toolbar-through">
       <!-- Your first view, it is also a .tab and should have "active" class to make it visible by default-->
-        <!-- We can make with view with navigation, let's add Top Navbar-->
+        <div class="pages">
+          <div data-page="index-3" class="page">
+            <div class="page-content">
+              <div class="content-block-title"> Who You Are </div>
+                <div class="content-block">     
+<!--                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "loadData()"/>             </div>     -->
+<!--
+                    <div id="Form" hidden> </div>
+                    <div id="aboutMe"></div>
+                    <div id = "bioOutput"></div>
+-->
+                    <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
+                    
+                    <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
+                    
+                    <input type="text" id="name" placeholder = "Name" />
+                    <input type = "text" id = "address" placeholder = "Address"/>
+<!--                    <div contenteditable="true">-->
+                    <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
+                    
+                    <div>
+                        <p> 
+                        Choose a picture of yourself
+                        </p>
+                            <input type="file" accept="image/*" onchange="picChange(event)"/>
+                        <p>
+                        Photo:
+                        </p>
+                            <canvas id="capturedPhoto" width="500" height="400">
+                        </canvas>
+                    </div>
+<!--                    </div>-->
+                </div>
+                </div>
+              </div>
+            </div>
+<!-- Bottom Tabbar-->
+      <div class="toolbar tabbar tabbar-labels">
+        <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link active "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link "> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+   <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+
+      <script>
+    <!-- Path to your app js-->
+          function addAddressName() {
+            var div = document.createElement("div");
+            div.innerHTML = "Name:" + document.getElementById("name").value + "Address:" + document.getElementById('address').value;
+            document.getElementById("aboutMe").appendChild(div);
+            document.getElementById("Finish").style.display="none";
+            document.getElementById("name").style.display="none";
+            document.getElementById("address").style.display="none";
+            document.getElementById("name").value="";
+            document.getElementById("address").value="";
+          }
+          function createBio() {
+            var div = document.createElement("div");
+            div.innerHTML = document.getElementById("bioDesc").value ;
+            document.getElementById("bioOutput").appendChild(div);
+            document.getElementById("bioDesc").value = "";
+          }
+          function handleOnClose(event)
+          {
+              
+              if (typeof(Storage) !== "undefined") {
+                // Store
+                localStorage.setItem("name", document.getElementById("name").innerHTML);
+                localStorage.setItem("address", document.getElementById("address").innerHTML);
+                localStorage.setItem("bioDesc", document.getElementById("bioDesc").innerHTML);
+                
+//                localStorage.setItem("images", photoCanvas);
+            } else {
+                console.log("Sorry, your browser does not support Web Storage");
+            }
+          }
+          function loadData()
+          {
+              // Retrieve
+                
+                document.getElementById("address").innerHTML = localStorage.getItem("address");
+                document.getElementById("bioDesc").innerHTML = localStorage.getItem("bioDesc");
+                document.getElementById("name").innerHTML = localStorage.getItem("name");
+//                document.getElementById("images").innerHTML = localStorage.getItem("capturedPhotos");
+//                for (x = 0; x < numOfLovedOnes; x++) 
+//                {
+//                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
+//                }
+          }
+          function picChange(evt) {
+            var fileInput = evt.target.files;
+            
+            if (fileInput.length>0) {
+                var windowURL = window.URL || window.webkitURL;
+                try {
+                    var picURL = windowURL.createObjectURL(fileInput[0]);
+                }
+                catch (e) {
+                    try {
+                        // Fallback if createObjectURL is not supported
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            showPicture.src = event.target.result;
+                        };
+                        fileReader.readAsDataURL(file);
+                    }
+                    catch (e) {
+                        var error = document.querySelector("#error");
+                        if (error) {
+                            error.innerHTML = "Neither createObjectURL or FileReader are supported";
+                        }
+                    }
+                }
+                
+                var photoCanvas = document.getElementById("capturedPhoto");
+                var photo = new Image();
+                photo.onload = function(){
+                    //draw photo into canvas when ready
+                    photoCanvas.getContext("2d").drawImage(photo, 0, 0, 500, 400);
+                    //release object url
+                    windowURL.revokeObjectURL(picURL);
+                };
+                //photo.height = 600;
+                //load photo into canvas
+                photo.src = picURL;
+            }
+        }
+      </script>
+      
+  </body>
+    
+</html>
+<!--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="css/my-app.css">
+  </head>
+  <body>
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>Left panel content goes here</p>
+      </div>
+    </div>
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right panel content goes here</p>
+      </div>
+    </div>
+    
+    <div class="views tabs toolbar-through">
+
         <div class="navbar">
           <div class="navbar-inner">
             <div class="center sliding">About You </div>
@@ -43,22 +211,18 @@
             <div class="page-content">
               <div class="content-block">
                 <p>Hello! Welcome to the About You page. This is where you input information about yourself and a picture.</p>
-                  <button onclick="location.href = 'FormDirectory.html'"> Input your info </button>
-     <!--             <button onclick="location.href = 'PicDirectory.html'" > takephoto </button>-->
+                  <butFton onclick="location.href = 'FormDirectory.html'"> Input your info </button>
                       <button onclick= "location.href = 'PicDirectory.html'"> Pick a photo </button>
 
               </div>
             </div>  
           </div>
         </div>
-<!-- Bottom Tabbar-->
       <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link active"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
       </div>
    </div>
-    <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
-    <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
   </body>
-</html>
+</html>-->
