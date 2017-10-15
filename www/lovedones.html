@@ -110,8 +110,11 @@
             div.innerHTML = generateNameDesHTML(document.getElementById('inputName').value, document.getElementById('inputDescription').value);
             document.getElementById("lovedOne").appendChild(generateImage(document.getElementById("profileImg")));
             document.getElementById("lovedOne").appendChild(div);
+            div.innerHTML += "<p>";
             document.getElementById("lovedOne").appendChild(generateEditButton());
-              document.getElementById("lovedOne").appendChild(generateDeleteButton());
+              div.innerHTML += "</p><p>";
+            document.getElementById("lovedOne").appendChild(generateDeleteButton());
+              div.innerHTML += "</p>";
             document.getElementById("input").style.display="none";
             document.getElementById("addButton").style.display="block";
             document.getElementById("profileImg").src="DefaultProfileImg.png";
@@ -153,14 +156,14 @@
               canvas.getContext("2d").drawImage(image, 0, 0, image.height, image.width);
               return canvas;
           }
-          function delete()
-          {
-              
-          }
-          function edit()
-          {
-              
-          }
+//          function delete()
+//          {
+//              
+//          }
+//          function edit()
+//          {
+//              
+//          }
         function picChange(evt) {
             var fileInput = evt.target.files;
             
