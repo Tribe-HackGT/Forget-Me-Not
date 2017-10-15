@@ -45,12 +45,12 @@
               <div class="content-block-title"> Who You Are </div>
                 <div class="content-block">     
 <!--                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "loadData()"/>             </div>     -->
-<!--
                     <div id="Form" hidden> </div>
                     <div id="aboutMe"></div>
                     <div id = "bioOutput"></div>
--->
-                    <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
+                    
+                    <input type="file" accept="image/*" onchange="picChange(event)"/>
+                    <input type="button" id="Finish" value="Add Name and Address" class="button button-round" onclick="addAddressName()" />
                     
                     <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
                     
@@ -61,14 +61,12 @@
                     
                     <div>
                         <p> 
-                        Choose a picture of yourself
+                            Choose a picture of yourself
                         </p>
-                            <input type="file" accept="image/*" onchange="picChange(event)"/>
                         <p>
-                        Photo:
+                            Photo:
                         </p>
-                            <canvas id="capturedPhoto" width="500" height="400">
-                        </canvas>
+                        <canvas id="capturedPhoto" width="500" height="400">    
                     </div>
 <!--                    </div>-->
                 </div>
@@ -89,7 +87,7 @@
     <!-- Path to your app js-->
           function addAddressName() {
             var div = document.createElement("div");
-            div.innerHTML = "Name:" + document.getElementById("name").value + "Address:" + document.getElementById('address').value;
+            div.innerHTML = document.getElementById("name").value + document.getElementById('address').value;
             document.getElementById("aboutMe").appendChild(div);
             document.getElementById("Finish").style.display="none";
             document.getElementById("name").style.display="none";
@@ -105,14 +103,13 @@
           }
           function handleOnClose(event)
           {
-              
               if (typeof(Storage) !== "undefined") {
                 // Store
                 localStorage.setItem("name", document.getElementById("name").innerHTML);
                 localStorage.setItem("address", document.getElementById("address").innerHTML);
                 localStorage.setItem("bioDesc", document.getElementById("bioDesc").innerHTML);
                 
-//                localStorage.setItem("images", photoCanvas);
+//                localStorage.setItem("images", capturedPhoto);
             } else {
                 console.log("Sorry, your browser does not support Web Storage");
             }
@@ -124,7 +121,7 @@
                 document.getElementById("address").innerHTML = localStorage.getItem("address");
                 document.getElementById("bioDesc").innerHTML = localStorage.getItem("bioDesc");
                 document.getElementById("name").innerHTML = localStorage.getItem("name");
-//                document.getElementById("images").innerHTML = localStorage.getItem("capturedPhotos");
+//                document.getElementById("images").innerHTML = localStorage.getItem("images");
 //                for (x = 0; x < numOfLovedOnes; x++) 
 //                {
 //                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
@@ -173,56 +170,3 @@
   </body>
     
 </html>
-<!--
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="css/my-app.css">
-  </head>
-  <body>
-    <div class="statusbar-overlay"></div>
-    <div class="panel-overlay"></div>
-    <div class="panel panel-left panel-reveal">
-      <div class="content-block">
-        <p>Left panel content goes here</p>
-      </div>
-    </div>
-    <div class="panel panel-right panel-cover">
-      <div class="content-block">
-        <p>Right panel content goes here</p>
-      </div>
-    </div>
-    
-    <div class="views tabs toolbar-through">
-
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="center sliding">About You </div>
-          </div>
-        </div>
-        <div class="pages navbar-through">
-          <div data-page="index-2" class="page">
-            <div class="page-content">
-              <div class="content-block">
-                <p>Hello! Welcome to the About You page. This is where you input information about yourself and a picture.</p>
-                  <butFton onclick="location.href = 'FormDirectory.html'"> Input your info </button>
-                      <button onclick= "location.href = 'PicDirectory.html'"> Pick a photo </button>
-
-              </div>
-            </div>  
-          </div>
-        </div>
-      <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link active"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
-      </div>
-   </div>
-    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
-    <script type="text/javascript" src="js/my-app.js"></script>
-  </body>
-</html>-->

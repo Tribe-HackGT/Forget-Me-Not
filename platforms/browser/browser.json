@@ -20,10 +20,13 @@
             "PACKAGE_NAME": "com.phonegap.forgetmenot"
         },
         "cordova-plugin-geolocation": {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
             "GEOLOCATION_USAGE_DESCRIPTION": " ",
 >>>>>>> 395722d119b9803c6033bfc759073814fd3b9dc9
+=======
+>>>>>>> Stashed changes
             "PACKAGE_NAME": "com.phonegap.forgetmenot"
         },
         "cordova-plugin-compat": {
