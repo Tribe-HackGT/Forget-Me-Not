@@ -11,7 +11,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
   </head>
-  <body>
+  <body onload="checkEdits()">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
@@ -37,24 +37,30 @@
             <div class="page-content">
               <div class="content-block-title">Who I am</div>
                 <div class="content-block">     
-                    <div contenteditable = "true">
+                    
+                    <div id = "edit" contenteditable = "true">
                         <input type="text" id="name" placeholder = "Name" />
                         <input type = "text" id = "address" placeholder = "Address"/>
+                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "saveEdits()"/>
+
                     </div>
+                    
                     <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
+                    
                     <div contenteditable="true">
                     <div id="Form" hidden> </div>
+                        
                     <div id="aboutMe"></div>
                     
                         <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
-                    
+                    </div>
                     <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
+                    <a> Bio: </a>
                     <div id = "bioOutput"></div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 <!-- Bottom Tabbar-->
       <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link active "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link "> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
@@ -63,13 +69,27 @@
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
+    <script type="text/javascript"></script>
 
       <script>
+          function saveEdits() {
 
+            //get the editable element
+            var editElem = document.getElementById("edit");
+
+            //get the edited element content
+            var userVersion = editElem.innerHTML;
+
+            //save the content to local storage
+            localStorage.userEdits = userVersion;
+
+            //write a confirmation to the user
+            document.getElementById("update").innerHTML="Edits saved!";
+
+         }
           function addAddressName() {
             var div = document.createElement("div");
-            div.innerHTML = "<p>" + document.getElementById('name').value + "</p><p>" + document.getElementById('address').value + "</p>";
+            div.innerHTML =  "<p>" + "Name:" + document.getElementById("name").value + "</p><p>" + "Address:" + document.getElementById('address').value + "</p>";
             document.getElementById("aboutMe").appendChild(div);
             document.getElementById("Finish").style.display="none";
             document.getElementById("name").style.display="none";
@@ -79,50 +99,61 @@
           }
           function createBio() {
             var div = document.createElement("div");
-            div.innerHTML = "<p>" + document.getElementById('bioDesc').value + "</p>";
+            div.innerHTML =   document.getElementById("bioDesc").value ;
             document.getElementById("bioOutput").appendChild(div);
             document.getElementById("bioDesc").value = "";
           }
-        function store() {
-                var editBtn = document.getElementById('bioDesc');
-                var editables = document.querySelectorAll('#title, #author, #content')
+          function checkEdits() {
 
-                editBtn.addEventListener('click', function(e) {
-              if (!editables[0].isContentEditable) {
-                editables[0].contentEditable = 'true';
-                editables[1].contentEditable = 'true';
-                editables[2].contentEditable = 'true';
-                editBtn.innerHTML = 'Save Changes';
-                editBtn.style.backgroundColor = '#6F9';
-              } else {
-                // Disable Editing
-                editables[0].contentEditable = 'false';
-                editables[1].contentEditable = 'false';
-                editables[2].contentEditable = 'false';
-                // Change Button Text and Color
-                editBtn.innerHTML = 'Enable Editing';
-                editBtn.style.backgroundColor = '#F96';
-                // Save the data in localStorage 
-                for (var i = 0; i < editables.length; i++) {
-                  localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
-                }
-              }
-                  if (typeof(Storage) !== "undefined") {
-
-                  if (localStorage.getItem('title') !== null) {
-                    editables[0].innerHTML = localStorage.getItem('title');
-                  }
-
-                  if (localStorage.getItem('author') !== null) {
-                    editables[1].innerHTML = localStorage.getItem('author');
-                  }
-
-                  if (localStorage.getItem('content') !== null) {
-                    editables[2].innerHTML = localStorage.getItem('content');
-                  } 
-                }
-            });
-        }
+            //find out if the user has previously saved edits
+            if(localStorage.userEdits!=null)
+            document.getElementById("edit").innerHTML = localStorage.userEdits;
+          }
+//        function store() {
+//                var editBtn = document.getElementById("saveButton");
+//                var editables = document.querySelectorAll("*")
+//
+//                editBtn.addEventListener('click', function(e) {
+//              if (!editables[0].isContentEditable) {
+//                editables[0].contentEditable = 'true';
+//                editables[1].contentEditable = 'true';
+//                editables[2].contentEditable = 'true';
+//                editBtn.innerHTML = 'Save Changes';
+//                editBtn.style.backgroundColor = '#6F9';
+//              } else {
+//                // Disable Editing
+//                editables[0].contentEditable = 'false';
+//                editables[1].contentEditable = 'false';
+//                editables[2].contentEditable = 'false';
+//                // Change Button Text and Color
+//                editBtn.innerHTML = 'Enable Editing';
+//                editBtn.style.backgroundColor = '#F96';
+//                // Save the data in localStorage 
+//                for (var i = 0; i < editables.length; i++) {
+//                  localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+//                }
+//              }
+//                  if (typeof(Storage) !== "undefined") {
+//
+//                  if (localStorage.getItem('title') !== null) {
+//                    editables[0].innerHTML = localStorage.getItem('title');
+//                  }
+//
+//                  if (localStorage.getItem('author') !== null) {
+//                    editables[1].innerHTML = localStorage.getItem('author');
+//                  }
+//
+//                  if (localStorage.getItem('content') !== null) {
+//                    editables[2].innerHTML = localStorage.getItem('content');
+//                  } 
+//                }
+//            });
+//            setInterval(function() {
+//              for (var i = 0; i < editables.length; i++) {
+//                localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+//              }
+//            }, 5000);
+//        }
 
       </script>
   </body>
