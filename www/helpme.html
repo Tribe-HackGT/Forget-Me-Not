@@ -32,131 +32,60 @@
     <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
     <div class="views tabs toolbar-through">
       <!-- Your first view, it is also a .tab and should have "active" class to make it visible by default-->
-        <div class="pages navbar-fixed">
-          <div data-page="index-4" class="page">
+        <div id="view-1" class="view view-main tab active">
+        <!-- Pages-->
+        <div class="pages">
+          <!-- Page, data-page contains page name-->
+          <div data-page="index-1" class="page">
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">Settings</div>
+                <button onClick="getLocation()" type="button" style   ="position:absolute;
+                  transition: .5s ease;
+                  left: 50%;">Get Location</button>
               </div>
             </div>
-            <div class="page-content">
-              <div class="list-block">
-                <ul>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-name"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Name</div>
-                        <div class="item-input">
-                          <input type="text" placeholder="Your name">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-email"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">E-mail</div>
-                        <div class="item-input">
-                          <input type="email" placeholder="E-mail">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-url"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">URL</div>
-                        <div class="item-input">
-                          <input type="url" placeholder="URL">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-password"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Password</div>
-                        <div class="item-input">
-                          <input type="password" placeholder="Password">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-tel"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Phone</div>
-                        <div class="item-input">
-                          <input type="tel" placeholder="Phone">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-gender"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Gender</div>
-                        <div class="item-input">
-                          <select>
-                            <option>Male</option>
-                            <option>Female</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-calendar"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Birth date</div>
-                        <div class="item-input">
-                          <input type="date" placeholder="Birth day" value="2014-04-30">
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-toggle"></i></div>
-                      <div class="item-inner"> 
-                        <div class="item-title label">Switch</div>
-                        <div class="item-input">
-                          <label class="label-switch">
-                            <input type="checkbox">
-                            <div class="checkbox"></div>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-media"><i class="icon icon-form-settings"></i></div>
-                      <div class="item-inner">
-                        <div class="item-title label">Slider</div>
-                        <div class="item-input">
-                          <div class="range-slider">
-                            <input type="range" min="0" max="100" value="50" step="0.1">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="content-block">
-                <p>Maurice commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc. Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium condimentum. Cras sed dolor odio.</p>
-              </div>
-            </div>
+
+              <div id="googleMap" style="width:100%;height:100%;"></div>
+
+                <script>
+                    function onSuccess(position) {
+                            var lat = position.coords.latitude.toFixed(2)
+                            var long = position.coords.longitude.toFixed(2)
+                            var total = lat+''+long;
+                            console.log(total)
+                            var mapProp= {
+                            center:new google.maps.LatLng(lat,long),
+                            zoom:20,
+                            };
+                            var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                    };
+
+                    // onError Callback receives a PositionError object
+                    //
+                    function onError(error) {
+                        alert('code: '    + error.code    + '\n' +
+                              'message: ' + error.message + '\n');
+                    }
+
+                    function getLocation() {
+                        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                        console.log(latitude);
+                    }
+                    
+                    
+                    
+                    
+                </script>
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLk2KkmqWfoPP0oiB3y1qnqeW4u8MwfuU&callback=myMap"></script>
+
+              
+              
+              
+              
           </div>
         </div>
+      </div>
 <!-- Bottom Tabbar-->
      <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link active"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
@@ -165,6 +94,5 @@
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
   </body>
 </html>
