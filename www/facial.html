@@ -1,55 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="css/my-app.css">
-  </head>
-  <body>
-    <!-- Status bar overlay for fullscreen mode-->
-    <div class="statusbar-overlay"></div>
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-      <div class="content-block">
-        <p>Left panel content goes here</p>
-      </div>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - face with camera</title>
+  <link rel="stylesheet" href="assets/demo.css">
+
+  <script src="js/tracking-min.js"></script>
+  <script src="js/face-min.js"></script>
+   <script src="../node_modules/dat.gui/build/dat.gui.min.js"></script>
+  <script src="js/stats.min.js"></script>
+
+  <style>
+  video, canvas {
+    margin-left: 230px;
+    margin-top: 120px;
+    position: absolute;
+  }
+  </style>
+</head>
+<body>
+  <div class="demo-title">
+    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － get user's webcam and detect faces</p>
+  </div>
+
+  <div class="demo-frame">
+    <div class="demo-container">
+      <video id="video" width="320" height="240" preload autoplay loop muted></video>
+      <canvas id="canvas" width="320" height="240"></canvas>
     </div>
-    <!-- Right panel with cover effect-->
-    <div class="panel panel-right panel-cover">
-      <div class="content-block">
-        <p>Right panel content goes here</p>
-      </div>
-    </div>
-    <!-- Views, and they are tabs-->
-    <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
-    <div class="views tabs toolbar-through">
-      <!-- Your first view, it is also a .tab and should have "active" class to make it visible by default-->
-        <div class="pages">
-          <div data-page="index-3" class="page">
-            <div class="page-content">
-              <div class="content-block-title">Facial Recognition</div>
-              <div class="content-block">
-<!--                <p>lots of facial   </p>-->
-              </div>
-            </div>
-          </div>
-        </div>
-<!-- Bottom Tabbar-->
-      <div class="toolbar tabbar tabbar-labels">
-        <div class="toolbar-inner"><a href="index.html" class="tab-link"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">What I Did</span></a><a href="whoIam.html" class="tab-link "><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Who I Am</span></a><a href="lovedones.html" class="tab-link"> <i class="icon tabbar-demo-icon-3"><span class="badge bg-red">4</span></i><span class="tabbar-label">Loved Ones</span></a><a href="HelpMe.html" class="tab-link"> <i class="icon tabbar-demo-icon-4"></i><span class="tabbar-label">Help Me</span></a><a href="facial.html" class="tab-link active"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Facial</span></a></div>
-      </div>
-    </div>
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
-    <!-- Path to your app js-->
-    <script type="text/javascript" src="js/my-app.js"></script>
-  </body>
+  </div>
+
+  <script>
+    window.onload = function() {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var tracker = new tracking.ObjectTracker('face');
+      tracker.setInitialScale(4);
+      tracker.setStepSize(2);
+      tracker.setEdgesDensity(0.1);
+      tracking.track('#video', tracker, { camera: true });
+      tracker.on('track', function(event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        event.data.forEach(function(rect) {
+          context.strokeStyle = '#a64ceb';
+          context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+          context.font = '11px Helvetica';
+          context.fillStyle = "#fff";
+          context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+          context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+        });
+      });
+      var gui = new dat.GUI();
+      gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
+      gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
+      gui.add(tracker, 'stepSize', 1, 5).step(0.1);
+    };
+  </script>
+
+</body>
 </html>
