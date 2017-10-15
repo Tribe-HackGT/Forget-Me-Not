@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <style type="text/css">
+        body, html {font-family:sans-serif; background-color:#000000;}
+/*
+        div {width:80%; margin:auto; background-color:#ffffff; padding:5%; border:2px solid #990066; text-align:center; border-radius:10px;}
+        canvas {padding:5%; border:2px solid #330000; background-color:#660000; border-radius:10px;}
+*/
+      </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,23 +46,28 @@
                 <div class="content-block">     
 <!--                        <input type = "button" id = "update" value = "save my edits" class = "button button-round" onclick = "loadData()"/>             </div>     -->
                     <input type="button" id="Finish" value="Finish" class="button button-round" onclick="addAddressName()" />
-                    
-                    
-                        <div id="Form" hidden> </div>
-                        
-                        
-                    
-                        
-                    
+                    <div id="Form" hidden> </div>
+
                     <input type ="button" id = "bioButton" value = "Add Bio" class = "button button-round" onclick = "createBio()"/>
                     <input type="text" id="name" placeholder = "Name" />
                     <input type = "text" id = "address" placeholder = "Address"/>
-                    <div contenteditable="true">
+<!--                    <div contenteditable="true">-->
                     <input type = "text" id = "bioDesc" placeholder ="Your Life"/>
                     <div id="aboutMe"></div>
                     <a> Bio: </a>
                     <div id = "bioOutput"></div>
+                    <div>
+                        <p> 
+                        Choose a picture of yourself
+                        </p>
+                            <input type="file" accept="image/*" onchange="picChange(event)"/>
+                        <p>
+                        Photo:
+                        </p>
+                            <canvas id="capturedPhoto" width="500" height="400">
+                        </canvas>
                     </div>
+<!--                    </div>-->
                 </div>
                 </div>
               </div>
@@ -72,8 +84,6 @@
 
       <script>
     <!-- Path to your app js-->
-
-          
           function addAddressName() {
             var div = document.createElement("div");
             div.innerHTML =  "<p>" + "Name:" + document.getElementById("name").value + "</p><p>" + "Address:" + document.getElementById('address').value + "</p>";
@@ -95,8 +105,8 @@
               if (typeof(Storage) !== "undefined") {
                 // Store
                 localStorage.setItem("name", document.getElementById("name").value);
-                localStorage.setItem("address", document.getElementById("address").value;);
-                localStorage.setItem("Biography", document.getElementById("bioDesc").Value)
+                localStorage.setItem("address", document.getElementById("address").value);
+                localStorage.setItem("Biography", document.getElementById("bioDesc").value);
                 localStorage.setItem("images", images);
             } else {
                 console.log("Sorry, your browser does not support Web Storage");
@@ -114,6 +124,46 @@
 //                    document.getElementById("canvas" + x).getContext("2d").drawImage(images[x], 0, 0, images[x].height, images[x].width);
 //                }
           }
+          function picChange(evt) {
+            var fileInput = evt.target.files;
+            
+            if (fileInput.length>0) {
+                var windowURL = window.URL || window.webkitURL;
+                try {
+                    var picURL = windowURL.createObjectURL(fileInput[0]);
+                }
+                catch (e) {
+                    try {
+                        // Fallback if createObjectURL is not supported
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            showPicture.src = event.target.result;
+                        };
+                        fileReader.readAsDataURL(file);
+                    }
+                    catch (e) {
+                        var error = document.querySelector("#error");
+                        if (error) {
+                            error.innerHTML = "Neither createObjectURL or FileReader are supported";
+                        }
+                    }
+                }
+                
+                var photoCanvas = document.getElementById("capturedPhoto");
+                var photo = new Image();
+                photo.onload = function(){
+                    //draw photo into canvas when ready
+                    photoCanvas.getContext("2d").drawImage(photo, 0, 0, 500, 400);
+                    //release object url
+                    windowURL.revokeObjectURL(picURL);
+                };
+                //photo.height = 600;
+                //load photo into canvas
+                photo.src = picURL;
+            }
+        }
       </script>
+      
   </body>
+    
 </html>
